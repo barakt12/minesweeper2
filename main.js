@@ -20,7 +20,6 @@ var gGame = {
   hintClicked: false,
 }
 var gTimerIntervalId
-var elRestartBtn
 
 function initGame() {
   gBoard = buildBoard()
@@ -30,7 +29,6 @@ function initGame() {
   gGame.lives = 3
   gGame.hints = 3
   renderDisplay()
-  elRestartBtn = document.querySelector('.restartBtn')
   renderLives()
   renderHints()
   renderBoard(gBoard)
@@ -83,12 +81,18 @@ function placeRandomMines(cellI, cellJ) {
   }
 }
 
+// function renderHighScore() {
+//   var elTable = document.querySelector('.table-container')
+//   elTable.innerHTML = `<div class="score">`
+// }
+
 function renderDisplay() {
   var elContainer = document.querySelector('.restartBtn-container')
   elContainer.innerHTML = ''
   elContainer.innerHTML += `<div class="flag-count">${gLevel.mines}</div>`
   elContainer.innerHTML += `<div onclick='restartGame()' class='restartBtn'></div>`
   elContainer.innerHTML += `<div class="timer">0</div>`
+  var elRestartBtn = document.querySelector('.restartBtn')
   elRestartBtn.innerText = SMILEY
 }
 
@@ -258,6 +262,7 @@ function restartGame() {
 }
 
 function gameOver() {
+  var elRestartBtn = document.querySelector('.restartBtn')
   elRestartBtn.innerText = SMILEY_LOSE
   gGame.isOn = false
   gGame.secsPassed = 1
@@ -295,6 +300,7 @@ function checkVictory() {
     }
   }
   if (count === gBoard.length * gBoard.length) {
+    var elRestartBtn = document.querySelector('.restartBtn')
     gGame.isOn = false
     elRestartBtn.innerText = SMILEY_WIN
     clearInterval(gTimerIntervalId)
