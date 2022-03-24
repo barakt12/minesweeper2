@@ -25,13 +25,15 @@ var elRestartBtn
 
 function initGame() {
   gBoard = buildBoard()
+  renderDisplay()
+  elRestartBtn = document.querySelector('.restartBtn')
   gGame.isOn = true
   gGame.secsPassed = 0
   clearInterval(gTimerIntervalId)
   gGame.lives = 3
   gGame.hints = 3
   renderDisplay()
-  elRestartBtn = document.querySelector('.restartBtn')
+ 
   renderLives()
   renderHints()
   renderBoard(gBoard)
