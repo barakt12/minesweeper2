@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   box-sizing: border-box;
   margin-top: 40px;
 }
@@ -76,7 +76,7 @@ img {
 }
 .flag-count {
   font-size: 20px;
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   box-shadow: rgb(0 0 0 / 9%) 0px 2px 1px, rgb(0 0 0 / 9%) 0px 9px 2px,
     rgb(0 0 0 / 9%) 0px 12px 4px, rgb(0 0 0 / 9%) -1px 15px 8px,
     rgb(0 0 0 / 9%) 0px 20px 16px;
@@ -92,7 +92,7 @@ img {
   line-height: 50px;
 }
 .timer {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   font-size: 20px;
   box-shadow: rgb(0 0 0 / 9%) 0px 2px 1px, rgb(0 0 0 / 9%) 0px 9px 2px,
     rgb(0 0 0 / 9%) 0px 12px 4px, rgb(0 0 0 / 9%) -1px 15px 8px,
