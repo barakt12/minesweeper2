@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body onload="initGame()">
+    <div class="btn-container">
+      <button onclick="changeDifficulty(4,2)" class="btn btnEasy">Easy</button>
+      <button onclick="changeDifficulty(8,12)" class="btn btnMid">
+        Intermediate
+      </button>
+      <button onclick="changeDifficulty(12,30)" class="btn btnHard">
+        Expert
+      </button>
+    </div>
+    <div class="table-container">
+      <div onclick="restartGame()" class="restartBtn"></div>
+      <table class="board">
+        <tbody class="board-body"></tbody>
+      </table>
+      <div class="life-container">
+        <!-- <img class="life0" src="/images/life.png" alt="" />
+        <img class="life1" src="/images/life.png" alt="" />
+        <img class="life2" src="/images/life.png" alt="" /> -->
+      </div>
+    </div>
+    <footer>Made by Barak Treves&copy;</footer>
+    <script src="/js/utils.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
