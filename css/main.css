@@ -2,10 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@font-face {
-  font-family: mine-sweeper;
-  src: url(fonts/mine-sweeper.ttf);
-}
+
 * {
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
