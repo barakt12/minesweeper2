@@ -4,7 +4,7 @@ const SMILEY_WIN = '😎'
 const SMILEY_LOSE = '🤯'
 const MINE = '💣'
 const FLAG = '🚩'
-const HINT = ''
+
 var gBoard
 var gLevel = {
   size: 4,
@@ -20,20 +20,15 @@ var gGame = {
   hintClicked: false,
 }
 var gTimerIntervalId
-var highScore = localStorage.getItem('highScore')
-var elRestartBtn
 
 function initGame() {
   gBoard = buildBoard()
-  renderDisplay()
-  elRestartBtn = document.querySelector('.restartBtn')
   gGame.isOn = true
   gGame.secsPassed = 0
   clearInterval(gTimerIntervalId)
   gGame.lives = 3
   gGame.hints = 3
   renderDisplay()
- 
   renderLives()
   renderHints()
   renderBoard(gBoard)
@@ -267,6 +262,7 @@ function restartGame() {
 }
 
 function gameOver() {
+  var elRestartBtn = document.querySelector('.restartBtn')
   elRestartBtn.innerText = SMILEY_LOSE
   gGame.isOn = false
   gGame.secsPassed = 1
@@ -304,6 +300,7 @@ function checkVictory() {
     }
   }
   if (count === gBoard.length * gBoard.length) {
+    var elRestartBtn = document.querySelector('.restartBtn')
     gGame.isOn = false
     elRestartBtn.innerText = SMILEY_WIN
     clearInterval(gTimerIntervalId)
