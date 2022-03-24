@@ -17,14 +17,25 @@ var gGame = {
   secsPassed: 0,
   lives: 3,
   hints: 3,
+  hintClicked: false,
 }
 var elRestartBtn = document.querySelector('.restartBtn')
+var highScore = localStorage.getItem('highScore')
+if (highScore !== null) {
+  if (gGame.shownCount > highScore) {
+    localStorage.setItem('highScore', gGame.shownCount)
+  }
+} else {
+  localStorage.setItem('highScore', gGame.shownCount)
+}
 
 function initGame() {
   gBoard = buildBoard()
   gGame.isOn = true
   gGame.lives = 3
+  gGame.hints = 3
   renderLives()
+  renderHints()
   // gBoard[1][1].isMine = true
   // gBoard[1][2].isMine = true
   renderBoard(gBoard)
@@ -84,7 +95,29 @@ function renderLives() {
   for (var i = 0; i < gGame.lives; i++) {
     elLifeDiv.innerHTML += `\n<img class="life life${
       i + 1
-    }" src="/images/life.png" alt=""/>\n`
+    }" src="images/life.png" alt=""/>\n`
+  }
+}
+
+function clickedHint(elHint) {
+  if (gGame.hintClicked && elHint.classList.contains('grow')) {
+    gGame.hintClicked = false
+    elHint.classList.remove('grow')
+  } else if (gGame.hintClicked && !elHint.classList.contains('grow')) {
+    return
+  } else {
+    gGame.hintClicked = true
+    elHint.classList.add('grow')
+  }
+}
+
+function renderHints() {
+  var elHintsDiv = document.querySelector('.hints-container')
+  elHintsDiv.innerHTML = ''
+  for (var i = 0; i < gGame.hints; i++) {
+    elHintsDiv.innerHTML += `<img onclick="clickedHint(this)"class="hint hint${
+      i + 1
+    }" src="images/hintx.png" alt=""/>\n`
   }
 }
 
@@ -103,20 +136,23 @@ function setMinesNegsCount(cellI, cellJ, mat) {
   return mineCount
 }
 
-function expandShown(cellI, cellJ, elCell) {
+function expandShown(cellI, cellJ, elCell, isHintClicked) {
   for (var i = cellI - 1; i <= cellI + 1; i++) {
     if (i < 0 || i >= gBoard.length) continue
     for (var j = cellJ - 1; j <= cellJ + 1; j++) {
       if (j < 0 || j >= gBoard[i].length) continue
       elCell = document.querySelector(`.cell${i}-${j}`)
       var cell = gBoard[i][j]
-      var minesCount = setMinesNegsCount(i, j, gBoard)
-      console.log(gGame.shownCount)
-      // console.log(minesCount)
-      cell.minesAroundCount = minesCount
-      cell.isShown = true
-      elCell.innerText = minesCount
-      // if (!minesCount && !cell.isShown) cellClicked(i, j, elCell)
+      if (isHintClicked) {
+        elCell.innerText = ''
+        cell.isShown = false
+      } else {
+        var minesCount = setMinesNegsCount(i, j, gBoard)
+        cell.minesAroundCount = minesCount
+        cell.isShown = true
+        elCell.innerText = minesCount
+        // if (!minesCount && !cell.isShown) expandShown(i, j, elCell)
+      }
     }
   }
 }
@@ -128,6 +164,16 @@ function cellClicked(i, j, elCell) {
 
   if (gGame.isOn && !cell.isMarked && !cell.isShown) {
     var minesAround = setMinesNegsCount(i, j, gBoard)
+    if (gGame.hintClicked) {
+      expandShown(i, j, elCell)
+      gGame.hintClicked = false
+      setTimeout(() => {
+        expandShown(i, j, elCell, true)
+        gGame.hints--
+        renderHints()
+      }, 1000)
+      return
+    }
     if (cell.isMine) {
       if (gGame.lives === 1) {
         elCell.innerText = MINE
@@ -216,5 +262,6 @@ function checkVictory() {
 function changeDifficulty(size, mines) {
   gLevel.size = size
   gLevel.mines = mines
+  gGame.shownCount = 0
   initGame()
 }
