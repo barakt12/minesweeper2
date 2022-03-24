@@ -184,7 +184,7 @@ function cellClicked(i, j, elCell) {
     gGame.secsPassed = 1
     timer()
   }
-  if (gGame.isOn && !cell.isMarked && !cell.isShown) {
+  if (gGame.isOn && !cell.isMarked) {
     var minesAround = setMinesNegsCount(i, j, gBoard)
     if (gGame.hintClicked) {
       expandShown(i, j, elCell, true, false)
