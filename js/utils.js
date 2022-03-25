@@ -56,7 +56,7 @@ function pad(val) {
 }
 
 // gStartTime = Date.now()
-function timer() {
+function timerutil() {
   //NOTICE: WE NEED GLOBAL START TIME - gStartTime
   var timeDiff = Date.now() - gStartTime
   //   var currTime = new Date(timeDiff)
