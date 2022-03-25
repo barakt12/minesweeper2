@@ -111,3 +111,16 @@ function renderBoard(board) {
 function getTime() {
   return new Date().toString().split(' ')[4]
 }
+
+function getRandomEmptyCell() {
+  var emptySpots = []
+  var currTile = {}
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard.length; j++) {
+      if (gBoard[i][j].isMine) continue
+      emptySpots.push({ i, j })
+    }
+  }
+  currTile = randomPick(emptySpots)
+  return currTile
+}

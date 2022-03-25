@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body onload="initGame()">
+    <h3 class="highscore"></h3>
     <div class="btn-container">
       <button onclick="changeDifficulty(4,2)" class="btn btnEasy">Easy</button>
       <button onclick="changeDifficulty(8,12)" class="btn btnMid">
@@ -18,7 +19,10 @@
       </button>
     </div>
     <div class="table-container">
-      <div class="hints-container"></div>
+      <div class="helper-container">
+        <div class="safe-container"></div>
+        <div class="hints-container"></div>
+      </div>
       <div class="restartBtn-container"></div>
 
       <table class="board">

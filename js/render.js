@@ -34,13 +34,30 @@ function renderLives() {
   }
 }
 
+function renderHighScore() {
+  var elHighscore = document.querySelector('.highscore')
+  elHighscore.innerText = `Best Time: \n\n00:${pad(
+    localStorage.getItem('highScore')
+  )}`
+}
+
+function renderSafePicks() {
+  var elSafesDiv = document.querySelector('.safe-container')
+  elSafesDiv.innerHTML = ''
+  for (var i = 0; i < gGame.safePicks; i++) {
+    elSafesDiv.innerHTML += `<img onclick="clickedSafe()"src="images/lock2.png" class="safe safe${
+      i + 1
+    }"></div>`
+  }
+}
+
 function renderHints() {
   var elHintsDiv = document.querySelector('.hints-container')
   elHintsDiv.innerHTML = ''
   for (var i = 0; i < gGame.hints; i++) {
     elHintsDiv.innerHTML += `<img onclick="clickedHint(this)"class="hint hint${
       i + 1
-    }" src="images/hintx.png" alt=""/>\n`
+    }" src="images/hint2.png" alt=""/>\n`
   }
 }
 

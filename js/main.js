@@ -4,6 +4,7 @@ const SMILEY_WIN = '😎'
 const SMILEY_LOSE = '🤯'
 const MINE = '💣'
 const FLAG = '🚩'
+const SAFE = '🔒'
 
 var gBoard
 var gTimerIntervalId
@@ -18,6 +19,7 @@ var gGame = {
   secsPassed: 0,
   lives: 3,
   hints: 3,
+  safePicks: 3,
   hintClicked: false,
 }
 
@@ -28,9 +30,12 @@ function initGame() {
   clearInterval(gTimerIntervalId)
   gGame.lives = 3
   gGame.hints = 3
+  gGame.safePicks = 3
+  renderHighScore()
   renderDisplay()
   renderLives()
   renderHints()
+  renderSafePicks()
   renderBoard(gBoard)
 }
 
@@ -65,6 +70,19 @@ function clickedHint(elHint) {
   } else {
     gGame.hintClicked = true
     elHint.classList.add('grow')
+  }
+}
+
+function clickedSafe() {
+  if (gGame.safePicks) {
+    var safeCell = getRandomEmptyCell()
+    var elSafeCell = document.querySelector(`.cell${safeCell.i}-${safeCell.j}`)
+    elSafeCell.classList.add('active-safe')
+    gGame.safePicks--
+    renderSafePicks()
+    setTimeout(() => {
+      elSafeCell.classList.remove('active-safe')
+    }, 1000)
   }
 }
 
@@ -130,10 +148,10 @@ function cellClicked(i, j, elCell) {
     if (gGame.hintClicked) {
       expandShown(i, j, elCell, true, false)
       gGame.hintClicked = false
+      gGame.hints--
+      renderHints()
       setTimeout(() => {
         expandShown(i, j, elCell, true, true)
-        gGame.hints--
-        renderHints()
       }, 1000)
       return
     }
@@ -211,14 +229,14 @@ function checkVictory() {
       var cell = gBoard[i][j]
       if (cell.isShown || (cell.isMarked && cell.isMine)) {
         count++
-        var highScore = localStorage.getItem('highScore')
-        if (!highScore || gGame.secsPassed < highScore) {
-          localStorage.setItem('highScore', `${gGame.secsPassed}`)
-        }
       }
     }
   }
   if (count === gBoard.length * gBoard.length) {
+    var highScore = localStorage.getItem('highScore')
+    if (!highScore || gGame.secsPassed < highScore) {
+      localStorage.setItem('highScore', `${gGame.secsPassed}`)
+    }
     var elRestartBtn = document.querySelector('.restartBtn')
     gGame.isOn = false
     elRestartBtn.innerText = SMILEY_WIN
