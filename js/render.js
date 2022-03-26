@@ -37,7 +37,7 @@ function renderLives() {
 function renderHighScore() {
   var elHighscore = document.querySelector('.highscore')
   elHighscore.innerText = `Best Time: \n\n00:${pad(
-    localStorage.getItem('highScore')
+    localStorage.getItem('highScore') ? localStorage.getItem('highScore') : '00'
   )}`
 }
 
